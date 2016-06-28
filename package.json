@@ -1,0 +1,38 @@
+{
+  "name": "react_recipe_book",
+  "version": "0.0.1",
+  "description": "A project off of FCC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --context-base --hot"
+  },
+  "author": "Daniel Stockham",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.10.*",
+    "babel-loader": "^6.2.*",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.*",
+    "css-loader": "^0.23.1",
+    "react-hot-loader": "^1.3.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.*",
+    "webpack-dev-server": "^1.14.*"
+  },
+  "dependencies": {
+    "json-loader": "^0.5.4",
+    "node-sass": "^3.8.0",
+    "react": "^15.0",
+    "react-dom": "^15.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanStockham/RecipeBox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DanStockham/RecipeBox/issues"
+  },
+  "homepage": "https://github.com/DanStockham/RecipeBox#readme"
+}
