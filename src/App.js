@@ -6,7 +6,10 @@ require('./main.scss');
 import React from 'react';
 import {render} from 'react-dom';
 
-//How should recipe data be stored?
+localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar']);
+
+
+//How should recipe data be stored
 
 //A component that renders different recipes
   //recipes are rendered seperately
@@ -20,7 +23,7 @@ import {render} from 'react-dom';
     //The user can change the name of the recipe
   //If add button is pressed, then a blank form is presented to the user to add a new recipe
     //If no recipe name is added, the recipe name will be 'Untitled'
-    
+
 
 
 
@@ -30,13 +33,16 @@ class App extends React.Component {
     super();
     this.state = {
       //store an instances of local storage
-
+      localKey: function() {
+        return localStorage.key(0);
+      }
     }
+
   }
 
   render() {
     return (
-      <h1>Hello World</h1>
+      <h1>{this.state.localKey()}</h1>
     )
   }
 }
