@@ -6,7 +6,7 @@ require('./main.scss');
 import React from 'react';
 import {render} from 'react-dom';
 
-localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar']);
+var recipe = localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar']);
 
 
 //How should recipe data be stored
@@ -25,6 +25,13 @@ localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar']);
     //If no recipe name is added, the recipe name will be 'Untitled'
 
 
+function ingredents(recipeItem) {
+  return (
+    <li>
+      {recipeItem}
+    </li>
+  );
+}
 
 
 //React compenents and render
@@ -35,14 +42,23 @@ class App extends React.Component {
       //store an instances of local storage
       localKey: function() {
         return localStorage.key(0);
-      }
+      },
+      localIngrds: localStorage.getItem('Cereal').split(',')
     }
 
   }
 
   render() {
+    console.log(this.state.localIngrds);
     return (
-      <h1>{this.state.localKey()}</h1>
+      <div>
+        <h1>{this.state.localKey()}</h1>
+        <ul>
+          {this.state.localIngrds.map(function(c,i,arr) {
+            return ingredents(c);
+          })}
+        </ul>
+      </div>
     )
   }
 }
