@@ -6,7 +6,10 @@ require('./main.scss');
 import React from 'react';
 import {render} from 'react-dom';
 
-var recipe = localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar', 'spoon']);
+localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar', 'spoon']);
+localStorage.setItem('Fried Rice', ['rice','egg yolk','peas','carrots','onion']);
+localStorage.setItem('Sandwich', ['bread', 'cheese', 'turkey', 'mustard']);
+
 
 
 //How should recipe data be stored
@@ -41,7 +44,12 @@ class App extends React.Component {
     this.state = {
       //store an instances of local storage
       localKey: function() {
-        return localStorage.key(0);
+        var eachKey = [];
+        for(var i = 0; i < localStorage.length; i++) {
+          eachKey.push(localStorage.key(i));
+        }
+
+        return eachKey;
       },
       localIngrds: localStorage.getItem('Cereal').split(',')
     }
@@ -49,10 +57,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.localIngrds);
+    console.log(this.state.localKey());
     return (
       <div>
-        <h1>{this.state.localKey()}</h1>
+        <h1>{this.state.localKey().map(function(c,i) {
+            return c;
+          })}</h1>
         <ul>
           {this.state.localIngrds.map(function(c,i,arr) {
             return <Ingredents key={i} recipeItem={c} />
