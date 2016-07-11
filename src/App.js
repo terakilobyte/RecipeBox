@@ -5,11 +5,12 @@ require('./main.scss');
 //Important React Modules
 import React from 'react';
 import {render} from 'react-dom';
+import { Button } from 'react-bootstrap';
 
 localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar', 'spoon']);
 localStorage.setItem('Fried Rice', ['rice','egg yolk','peas','carrots','onion']);
 localStorage.setItem('Sandwich', ['bread', 'cheese', 'turkey', 'mustard']);
-
+localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks', 'noodles', 'peas and carrots'])
 
 
 
@@ -30,7 +31,29 @@ localStorage.setItem('Sandwich', ['bread', 'cheese', 'turkey', 'mustard']);
 
 
 
-
+const Recipes = function({recipeName}) {
+  function getIngredents(recipe) {
+    var ingredents = localStorage.getItem(recipe).split(',');
+    console.log(ingredents);
+    return ingredents;
+  }
+  return (
+    <div>
+      <h1>
+        {recipeName}
+      </h1>
+      <ul>
+        {getIngredents(recipeName).map(function(c,i) {
+            return (
+              <li key={i}>{c}</li>
+            );
+          })}
+      </ul>
+      <Button bsStyle="info">Edit</Button>
+      <Button bsStyle="danger">Delete</Button>
+    </div>
+  );
+}
 
 //React compenents and render
 class App extends React.Component {
@@ -61,26 +84,6 @@ class App extends React.Component {
   }
 }
 
-const Recipes = function({recipeName}) {
-  function getIngredents(recipe) {
-    var ingredents = localStorage.getItem(recipe).split(',');
-    console.log(ingredents);
-    return ingredents;
-  }
-  return (
-    <div>
-      <h1>
-        {recipeName}
-      </h1>
-      <ul>
-        {getIngredents(recipeName).map(function(c,i) {
-            return (
-              <li key={i}>{c}</li>
-            );
-          })}
-      </ul>
-    </div>
-  );
-}
+
 
 render(<App />, document.getElementById('app'))
