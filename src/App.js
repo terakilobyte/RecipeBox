@@ -12,6 +12,7 @@ localStorage.setItem('Sandwich', ['bread', 'cheese', 'turkey', 'mustard']);
 
 
 
+
 //How should recipe data be stored
 
 //A component that renders different recipes
@@ -28,13 +29,7 @@ localStorage.setItem('Sandwich', ['bread', 'cheese', 'turkey', 'mustard']);
     //If no recipe name is added, the recipe name will be 'Untitled'
 
 
-const Ingredents = ({recipeItem}) => {
-  return (
-    <li>
-      {recipeItem}
-    </li>
-  );
-}
+
 
 
 //React compenents and render
@@ -50,8 +45,7 @@ class App extends React.Component {
         }
 
         return eachKey;
-      },
-      localIngrds: localStorage.getItem('Cereal').split(',')
+      }
     }
 
   }
@@ -59,18 +53,34 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.state.localKey().map(function(c,i) {
-            return c;
-          })}
-        </h1>
-        <ul>
-          {this.state.localIngrds.map(function(c,i,arr) {
-            return <Ingredents key={i} recipeItem={c} />
-          })}
-        </ul>
+        {this.state.localKey().map(function(c,i,arr) {
+            return <Recipes key={i} recipeName={c} />
+        })}
       </div>
     )
   }
+}
+
+const Recipes = function({recipeName}) {
+  function getIngredents(recipe) {
+    var ingredents = localStorage.getItem(recipe).split(',');
+    console.log(ingredents);
+    return ingredents;
+  }
+  return (
+    <div>
+      <h1>
+        {recipeName}
+      </h1>
+      <ul>
+        {getIngredents(recipeName).map(function(c,i) {
+            return (
+              <li key={i}>{c}</li>
+            );
+          })}
+      </ul>
+    </div>
+  );
 }
 
 render(<App />, document.getElementById('app'))
