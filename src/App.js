@@ -30,6 +30,28 @@ localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks',
     //If no recipe name is added, the recipe name will be 'Untitled'
 
 
+class Edit extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showModal: false
+    }
+  }
+
+  close() {
+    this.setState({ showModal: false })
+  }
+
+  open() {
+    this.setState({ showModal: true })
+  }
+
+  render() {
+    return (
+      <Button bsStyle="info">Edit</Button>
+    )
+  }
+}
 
 const Recipes = function({recipeName}) {
   function getIngredents(recipe) {
@@ -49,7 +71,7 @@ const Recipes = function({recipeName}) {
             );
           })}
       </ul>
-      <Button bsStyle="info">Edit</Button>
+      <Edit />
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
