@@ -57,12 +57,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.localKey());
     return (
       <div>
         <h1>{this.state.localKey().map(function(c,i) {
             return c;
-          })}</h1>
+          })}
+        </h1>
         <ul>
           {this.state.localIngrds.map(function(c,i,arr) {
             return <Ingredents key={i} recipeItem={c} />
