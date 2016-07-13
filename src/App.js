@@ -6,6 +6,7 @@ require('./main.scss');
 import React from 'react';
 import {render} from 'react-dom';
 import { Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar', 'spoon']);
 localStorage.setItem('Fried Rice', ['rice','egg yolk','peas','carrots','onion']);
@@ -38,17 +39,34 @@ class Edit extends React.Component {
     }
   }
 
-  close() {
-    this.setState({ showModal: false })
-  }
-
-  open() {
-    this.setState({ showModal: true })
-  }
+  // close() {
+  //   this.setState({showModal: false});
+  // }
+  //
+  // open() {
+  //   this.setState({showModal: true});
+  // }
 
   render() {
+    for(var prop in this.state) {
+      console.log(this.state.showModal[prop]);
+    }
     return (
-      <Button bsStyle="info">Edit</Button>
+      <div>
+        <Button bsStyle="info" onClick={this.open}>Edit</Button>
+
+        <Modal show={this.state.showModal} hide={this.close}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h1>This is a test</h1>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     )
   }
 }
