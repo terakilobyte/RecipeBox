@@ -32,29 +32,10 @@ localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks',
 
 
 class Edit extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      showModal: false
-    }
-  }
-
-  // close() {
-  //   this.setState({showModal: false});
-  // }
-  //
-  // open() {
-  //   this.setState({showModal: true});
-  // }
 
   render() {
-    for(var prop in this.state) {
-      console.log(this.state.showModal[prop]);
-    }
     return (
       <div>
-        <Button bsStyle="info" onClick={this.open}>Edit</Button>
-
         <Modal show={this.state.showModal} hide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
@@ -71,28 +52,43 @@ class Edit extends React.Component {
   }
 }
 
-const Recipes = function({recipeName}) {
-  function getIngredents(recipe) {
+class Recipes extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      recipeNames: null,
+      showEdit: false
+    }
+  }
+
+  componentWillUpdate(recipe, recipeNames) {
+    return recipe.id !== this.props.id;
+  }
+
+  getIngredents(recipe) {
     var ingredents = localStorage.getItem(recipe).split(',');
     console.log(ingredents);
     return ingredents;
   }
+
+  render() {
   return (
     <div>
       <h1>
-        {recipeName}
+        {this.state.recipeNames}
       </h1>
       <ul>
-        {getIngredents(recipeName).map(function(c,i) {
+        {getIngredents(this.state.recipeNames).map(function(c,i) {
             return (
               <li key={i}>{c}</li>
             );
           })}
       </ul>
-      <Edit />
+        <Button bsStyle="info" onClick={function() {this.state.showEdit = true}}>Edit</Button>
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
+  }
 }
 
 //React compenents and render
@@ -108,7 +104,8 @@ class App extends React.Component {
         }
 
         return eachKey;
-      }
+      },
+      showModal: false
     }
 
   }
@@ -117,7 +114,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.localKey().map(function(c,i,arr) {
-            return <Recipes key={i} recipeName={c} />
+            return <Recipes key={i} recipeNames={c} />
         })}
       </div>
     )
