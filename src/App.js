@@ -31,7 +31,7 @@ localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks',
     //If no recipe name is added, the recipe name will be 'Untitled'
 
 
-const Example = React.createClass({
+const Edit = React.createClass({
   getInitialState() {
     return { showModal: this.props.modalState };
   },
@@ -48,6 +48,7 @@ const Example = React.createClass({
     console.log("modalState " + this.props.modalState);
     return (
       <div>
+        <Button  bsStyle="info" onClick={this.open}>Edit</Button>
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
@@ -80,8 +81,7 @@ const Example = React.createClass({
           </Modal.Footer>
         </Modal>
       </div>
-    )
-  }
+    }
 });
 
 class Recipes extends React.Component {
@@ -91,11 +91,6 @@ class Recipes extends React.Component {
       showEdit: false
     }
   }
-
-  changeModalState() {
-      this.setState( { showEdit: true } );
-      console.log("showEdit " + this.state.showEdit);
-    }
 
   render() {
   function getIngredents(recipe) {
@@ -115,7 +110,7 @@ class Recipes extends React.Component {
             );
           })}
       </ul>
-        <Button bsStyle="info" onClick={this.changeModalState.bind(this)} modalState={this.state.showEdit}>Edit</Button>
+      <Edit>Edit</Edit>
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
