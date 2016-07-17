@@ -31,17 +31,58 @@ localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks',
     //If no recipe name is added, the recipe name will be 'Untitled'
 
 
-class Edit extends React.Component {
+const Example = React.createClass({
+  getInitialState() {
+    return { showModal: false };
+  },
+
+  close() {
+    this.setState({ showModal: false });
+  },
+
+  open() {
+    this.setState({ showModal: true });
+  },
 
   render() {
     return (
       <div>
-        <Modal show={this.state.showModal} hide={this.close}>
+        <p>Click to get the full Modal experience!</p>
+
+        <Button
+          bsStyle="primary"
+          bsSize="large"
+          onClick={this.open}
+        >
+          Launch demo modal
+        </Button>
+
+        <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h1>This is a test</h1>
+            <h4>Text in a modal</h4>
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+
+            <h4>Popover in a modal</h4>
+            <p>there is a <OverlayTrigger overlay={popover}><a href="#">popover</a></OverlayTrigger> here</p>
+
+            <h4>Tooltips in a modal</h4>
+            <p>there is a <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a></OverlayTrigger> here</p>
+
+            <hr />
+
+            <h4>Overflowing text to show scroll behavior</h4>
+            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
@@ -50,35 +91,23 @@ class Edit extends React.Component {
       </div>
     )
   }
-}
+});
 
 class Recipes extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      recipeNames: null,
-      showEdit: false
-    }
-  }
-
-  componentWillUpdate(recipe, recipeNames) {
-    return recipe.id !== this.props.id;
-  }
-
-  getIngredents(recipe) {
-    var ingredents = localStorage.getItem(recipe).split(',');
-    console.log(ingredents);
-    return ingredents;
-  }
-
   render() {
+  console.log(this.state.show)
+  function getIngredents(recipe) {
+      var ingredents = localStorage.getItem(recipe).split(',');
+      console.log(ingredents);
+      return ingredents;
+  }
   return (
     <div>
       <h1>
-        {this.state.recipeNames}
+        {this.props.recipeNames}
       </h1>
       <ul>
-        {getIngredents(this.state.recipeNames).map(function(c,i) {
+        {getIngredents(this.props.recipeNames).map(function(c,i) {
             return (
               <li key={i}>{c}</li>
             );
@@ -104,8 +133,7 @@ class App extends React.Component {
         }
 
         return eachKey;
-      },
-      showModal: false
+      }
     }
 
   }
