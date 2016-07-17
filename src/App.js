@@ -45,19 +45,9 @@ const Example = React.createClass({
   },
 
   render() {
-    console.log(this.props.modalState);
+    console.log("modalState " + this.props.modalState);
     return (
       <div>
-        <p>Click to get the full Modal experience!</p>
-
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={this.open}
-        >
-          Launch demo modal
-        </Button>
-
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
@@ -102,16 +92,17 @@ class Recipes extends React.Component {
     }
   }
 
+  changeModalState() {
+      this.setState( { showEdit: true } );
+      console.log("showEdit " + this.state.showEdit);
+    }
+
   render() {
   function getIngredents(recipe) {
       var ingredents = localStorage.getItem(recipe).split(',');
       console.log(ingredents);
       return ingredents;
   }
-  function changeModalState() {
-      this.state.showEdit = true;
-    }
-
   return (
     <div>
       <h1>
@@ -124,7 +115,7 @@ class Recipes extends React.Component {
             );
           })}
       </ul>
-        <Button bsStyle="info" onClick={changeModalState()} modalState={this.state.showEdit}>Edit</Button>
+        <Button bsStyle="info" onClick={this.changeModalState.bind(this)} modalState={this.state.showEdit}>Edit</Button>
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
