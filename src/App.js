@@ -33,7 +33,7 @@ localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks',
 
 const Example = React.createClass({
   getInitialState() {
-    return { showModal: false };
+    return { showModal: this.props.modalState };
   },
 
   close() {
@@ -94,8 +94,14 @@ const Example = React.createClass({
 });
 
 class Recipes extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showEdit: false
+    }
+  }
+  
   render() {
-  console.log(this.state.show)
   function getIngredents(recipe) {
       var ingredents = localStorage.getItem(recipe).split(',');
       console.log(ingredents);
@@ -113,7 +119,7 @@ class Recipes extends React.Component {
             );
           })}
       </ul>
-        <Button bsStyle="info" onClick={function() {this.state.showEdit = true}}>Edit</Button>
+        <Button bsStyle="info" onClick={function() {this.state.showEdit = true}} modalState={this.state.showEdit}>Edit</Button>
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
