@@ -7,6 +7,9 @@ import React from 'react';
 import {render} from 'react-dom';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
+import { Popover } from 'react-bootstrap';
+import { Tooltip } from 'react-bootstrap';
+import { OverlayTrigger } from 'react-bootstrap';
 
 localStorage.setItem('Cereal', ['cornflakes', 'milk', 'sugar', 'spoon']);
 localStorage.setItem('Fried Rice', ['rice','egg yolk','peas','carrots','onion']);
@@ -46,6 +49,8 @@ const Edit = React.createClass({
 
   render() {
     console.log("modalState " + this.props.modalState);
+    let popover = <Popover title="popover">very popover. such engagement</Popover>;
+    let tooltip = <Tooltip>wow.</Tooltip>;
     return (
       <div>
         <Button  bsStyle="info" onClick={this.open}>Edit</Button>
@@ -81,7 +86,7 @@ const Edit = React.createClass({
           </Modal.Footer>
         </Modal>
       </div>
-    }
+    )}
 });
 
 class Recipes extends React.Component {
