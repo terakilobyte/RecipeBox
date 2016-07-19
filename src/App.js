@@ -36,7 +36,18 @@ localStorage.setItem('Chicken Noodle Soup', ['chicken chunks', 'stock', 'leeks',
 
 const Edit = React.createClass({
   getInitialState() {
-    return { showModal: this.props.modalState };
+    return {
+      showModal: this.props.modalState,
+      value: this.props.recipe
+    };
+  },
+
+  handleChange(event) {
+    this.setState({value: event.target.value})
+  },
+
+  completeEdit() {
+    //sets a new item and replicates the old ingredents data and deletes the previous item.
   },
 
   close() {
@@ -48,41 +59,25 @@ const Edit = React.createClass({
   },
 
   render() {
-    console.log("modalState " + this.props.modalState);
     let popover = <Popover title="popover">very popover. such engagement</Popover>;
     let tooltip = <Tooltip>wow.</Tooltip>;
+      // console.log(this.props.recipe);
+      // console.log(localStorage.getItem(this.props.recipe));
     return (
       <div>
         <Button  bsStyle="info" onClick={this.open}>Edit</Button>
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Edit Recipe</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+            <label for="recipe">Recipe</label>
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
 
-            <h4>Popover in a modal</h4>
-            <p>there is a <OverlayTrigger overlay={popover}><a href="#">popover</a></OverlayTrigger> here</p>
-
-            <h4>Tooltips in a modal</h4>
-            <p>there is a <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a></OverlayTrigger> here</p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
+            //Create a button that saves the edited recipe
+            <Button onClick={this.close}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -115,7 +110,7 @@ class Recipes extends React.Component {
             );
           })}
       </ul>
-      <Edit>Edit</Edit>
+      <Edit recipe={this.props.recipeNames} >Edit</Edit>
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
