@@ -38,20 +38,26 @@ const Edit = React.createClass({
   getInitialState() {
     return {
       showModal: this.props.modalState,
-      value: this.props.recipe
+      recipeName: this.props.recipe,
+      newRecipeName: this.props.recipe
     };
   },
 
   handleChange(event) {
-    this.setState({value: event.target.value})
+    this.setState({newRecipeName: event.target.value})
   },
 
   completeEdit() {
-    //sets a new item and replicates the old ingredents data and deletes the previous item.
+    var ingredents = localStorage.getItem(this.state.recipeName);
+    localStorage.setItem(this.state.newRecipeName, ingredents);
+    localStorage.removeItem(this.state.recipeName);
+    this.close();
   },
 
   close() {
     this.setState({ showModal: false });
+    console.log('Static prop: ' + this.state.recipeName);
+    console.log('Editable prop: ' + this.state.newRecipeName);
   },
 
   open() {
@@ -72,11 +78,11 @@ const Edit = React.createClass({
           </Modal.Header>
           <Modal.Body>
             <label for="recipe">Recipe</label>
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input type="text" value={this.state.newRecipeName} onChange={this.handleChange} />
 
           </Modal.Body>
           <Modal.Footer>
-            //Create a button that saves the edited recipe
+            <Button onClick={this.completeEdit}>Save</Button>
             <Button onClick={this.close}>Cancel</Button>
           </Modal.Footer>
         </Modal>
