@@ -51,6 +51,7 @@ const Edit = React.createClass({
     var ingredents = localStorage.getItem(this.state.recipeName);
     localStorage.setItem(this.state.newRecipeName, ingredents);
     localStorage.removeItem(this.state.recipeName);
+    //Need to update parent div with new items.
     this.close();
   },
 
@@ -65,6 +66,7 @@ const Edit = React.createClass({
   },
 
   render() {
+    console.log(localStorage);
     let popover = <Popover title="popover">very popover. such engagement</Popover>;
     let tooltip = <Tooltip>wow.</Tooltip>;
       // console.log(this.props.recipe);
@@ -138,6 +140,9 @@ class App extends React.Component {
         return eachKey;
       }
     }
+  }
+
+  componentWillUpdate() {
 
   }
 
