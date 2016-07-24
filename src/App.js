@@ -38,8 +38,8 @@ const Edit = React.createClass({
   getInitialState() {
     return {
       showModal: this.props.modalState,
-      recipeName: this.props.recipe,
-      newRecipeName: this.props.recipe
+      recipeName: this.props.recipeNames,
+      newRecipeName: this.props.recipeNames
     };
   },
 
@@ -52,6 +52,13 @@ const Edit = React.createClass({
     localStorage.setItem(this.state.newRecipeName, ingredents);
     localStorage.removeItem(this.state.recipeName);
     //Need to update parent div with new items.
+    function forEachKey() {
+      var key = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        key.push(localStorage.key(i));
+      }
+      return key;
+    }
     this.close();
   },
 
@@ -66,7 +73,7 @@ const Edit = React.createClass({
   },
 
   render() {
-    console.log(localStorage);
+    // console.log(localStorage);
     let popover = <Popover title="popover">very popover. such engagement</Popover>;
     let tooltip = <Tooltip>wow.</Tooltip>;
       // console.log(this.props.recipe);
@@ -96,9 +103,14 @@ class Recipes extends React.Component {
   constructor() {
     super();
     this.state = {
-      showEdit: false
+      showEdit: false,
+      recipes: null
     }
   }
+
+  // componentWillMount() {
+  //   return this.state.recipes !== this.props.recipeNames;
+  // }
 
   render() {
   function getIngredents(recipe) {
@@ -106,6 +118,9 @@ class Recipes extends React.Component {
       console.log(ingredents);
       return ingredents;
   }
+
+  this.state.recipes = this.props.recipeNames;
+
   return (
     <div>
       <h1>
@@ -118,7 +133,7 @@ class Recipes extends React.Component {
             );
           })}
       </ul>
-      <Edit recipe={this.props.recipeNames} >Edit</Edit>
+      <Edit recipeNames={this.props.recipeNames} >Edit</Edit>
       <Button bsStyle="danger">Delete</Button>
     </div>
   );
@@ -136,14 +151,10 @@ class App extends React.Component {
         for(var i = 0; i < localStorage.length; i++) {
           eachKey.push(localStorage.key(i));
         }
-
+        console.log(eachKey);
         return eachKey;
       }
     }
-  }
-
-  componentWillUpdate() {
-
   }
 
   render() {
