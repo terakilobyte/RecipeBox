@@ -97,21 +97,25 @@ class Recipes extends React.Component {
     super();
     this.state = {
       showEdit: false,
-      recipes: null
+      recipe: null
     }
+  }
+
+  componentWillMount() {
+      this.setState( {recipe: this.props.recipeNames} );
   }
 
   render() {
   function getIngredents(recipe) {
       var ingredents = localStorage.getItem(recipe).split(',');
-      console.log(ingredents);
+      // console.log(ingredents);
       return ingredents;
   }
 
   return (
     <div>
       <h1>
-        {this.props.recipeNames}
+        {this.state.recipe}
       </h1>
       <ul>
         {getIngredents(this.props.recipeNames).map(function(c,i) {
@@ -138,33 +142,17 @@ class App extends React.Component {
         for(var i = 0; i < localStorage.length; i++) {
           eachKey.push(localStorage.key(i));
         }
-        console.log(eachKey);
+        // console.log(eachKey);
         return eachKey;
       }
     }
   }
 
-  componentWillMount() {
-    this.setState({ localKey: key() });
-  }
-
-  componentDidUpdate() {
-    this.setState({ localKey: key() });
-  }
-
   render() {
-    function key() {
-      var eachKey = [];
-      for(var i = 0; i < localStorage.length; i++) {
-        eachKey.push(localStorage.key(i));
-      }
-      console.log(eachKey);
-      return eachKey;
-    }
 
     return (
       <div>
-        {this.state.localKey.map(function(c,i,arr) {
+        {this.state.localKey().map(function(c,i,arr) {
             return <Recipes key={i} recipeNames={c} />
         })}
       </div>
