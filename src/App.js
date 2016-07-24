@@ -52,13 +52,6 @@ const Edit = React.createClass({
     localStorage.setItem(this.state.newRecipeName, ingredents);
     localStorage.removeItem(this.state.recipeName);
     //Need to update parent div with new items.
-    function forEachKey() {
-      var key = [];
-      for (var i = 0; i < localStorage.length; i++) {
-        key.push(localStorage.key(i));
-      }
-      return key;
-    }
     this.close();
   },
 
@@ -108,18 +101,12 @@ class Recipes extends React.Component {
     }
   }
 
-  // componentWillMount() {
-  //   return this.state.recipes !== this.props.recipeNames;
-  // }
-
   render() {
   function getIngredents(recipe) {
       var ingredents = localStorage.getItem(recipe).split(',');
       console.log(ingredents);
       return ingredents;
   }
-
-  this.state.recipes = this.props.recipeNames;
 
   return (
     <div>
@@ -157,10 +144,27 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.setState({ localKey: key() });
+  }
+
+  componentDidUpdate() {
+    this.setState({ localKey: key() });
+  }
+
   render() {
+    function key() {
+      var eachKey = [];
+      for(var i = 0; i < localStorage.length; i++) {
+        eachKey.push(localStorage.key(i));
+      }
+      console.log(eachKey);
+      return eachKey;
+    }
+
     return (
       <div>
-        {this.state.localKey().map(function(c,i,arr) {
+        {this.state.localKey.map(function(c,i,arr) {
             return <Recipes key={i} recipeNames={c} />
         })}
       </div>
