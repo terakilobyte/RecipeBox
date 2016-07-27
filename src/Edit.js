@@ -28,6 +28,15 @@ class Edit extends React.Component {
     console.log(event.target);
     const name = this.state.recipe.name;
     const ingredients = this.state.recipe.ingredients;
+    const newState = ingredients.map((elem, idx) => {
+      console.log(idx, +event.target.id, 'matching', idx === +event.target.id);
+      if (idx === +event.target.id) {
+
+        return event.target.value;
+      }
+      return elem;
+    });
+    this.setState({recipe: {name, ingredients: newState}});
   }
 
   completeEdit() {
@@ -40,7 +49,8 @@ class Edit extends React.Component {
     const name = this.state.recipe.name;
     const ingredients = this.state.recipe.ingredients;
     const recipe = {name, ingredients: [...ingredients, ""]};
-    this.props.editItem(this.state.originalName, recipe);
+    //this.props.editItem(this.state.originalName, recipe);
+    this.setState({recipe})
   }
 
   close() {
@@ -56,9 +66,9 @@ class Edit extends React.Component {
     // let tooltip = <Tooltip>wow.</Tooltip>;
       // console.log(this.props.recipe);
       // console.log(localStorage.getItem(this.props.recipe));
-    const ingredients = this.props.recipe.ingredients.map((elem, idx) => {
+    const ingredients = this.state.recipe.ingredients.map((elem, idx) => {
       return <input name="ingredients"
-        id={elem}
+        id={idx}
         key={idx} type="text"
         onChange={this.handleIngredientEdit}
         value={elem} />
