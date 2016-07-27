@@ -26,3 +26,24 @@ table {
     text-align: center;
   }
 }
+
+input {
+  display: block;
+  margin-left: 100px;
+  margin-top: 2px;
+}
+
+input:focus {
+  border: 1px solid #333;
+}
+
+label {
+  float: left;
+  margin-right: 20px;
+  text-align: right
+}
+
+.form {
+  flex-direction: column;
+  margin: 5 auto;
+}

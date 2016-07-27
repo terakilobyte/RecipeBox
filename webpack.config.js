@@ -1,4 +1,4 @@
-var Webpack = require('webpack');
+// var Webpack = require('webpack'); You aren't using this import
 var babelPresets = {presets: ['react', 'es2015']};
 var path = require('path');
 
@@ -8,6 +8,10 @@ module.exports = {
   output: {
     path: __dirname + "/src",
     filename: 'app.js'
+  },
+  devtool: 'eval-source-map',
+  devServer: {
+    stats: 'errors-only' // get rid of all that terminal spam, we only care about errors
   },
   module: {
     loaders: [{
